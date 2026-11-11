@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rajpoot Traders — Enterprise Sales, Khata & Stock ERP</title>
+  <style>
+    :root {
+      --bg-main: #f1f5f9;
+      --bg-card: #ffffff;
+      --sidebar-bg: #0b1120;
+      --sidebar-hover: #1e293b;
+      --sidebar-active: #0284c7;
+      --navy-900: #0f172a;
+      --navy-800: #1e293b;
+      --slate-700: #334155;
+      --slate-500: #64748b;
+      --slate-200: #e2e8f0;
+      --slate-100: #f8fafc;
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --emerald: #10b981;
+      --emerald-dark: #059669;
+      --amber: #f59e0b;
+      --danger: #ef4444;
+      /* Client Video Authentic Sheet Palette */
+      --sheet-mint: #1ff0a6;
+      --sheet-gold: #ebcb8b;
+      --sheet-blue: #1da1f2;
+      --sheet-cyan: #2af5d6;
+      --sheet-lime: #52f230;
+      --sheet-coral: #d96b6b;
+      --sheet-green: #22c55e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--bg-main);
+      color: var(--navy-900);
+      min-height: 100vh;
+      display: flex;
+      overflow-x: hidden;
+    }
+
+    /* ============ SIDEBAR ============ */
+    .erp-sidebar {
+      width: 270px;
+      background: var(--sidebar-bg);
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 50;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.18);
+    }
+
+    .sidebar-brand {
+      padding: 20px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: linear-gradient(180deg, rgba(2, 132, 199, 0.18) 0%, transparent 100%);
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+
+    .sidebar-brand h2 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.3px;
+      line-height: 1.25;
+    }
+
+    .sidebar-brand p {
+      font-size: 11.5px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .nav-section-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #64748b;
+      padding: 8px 10px 4px;
+    }
+
+    .side-btn {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #cbd5e1;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.15s ease;
+    }
+
+    .side-btn:hover {
+      background: var(--sidebar-hover);
+      color: #ffffff;
+    }
+
+    .side-btn.active {
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+    }
+
+    .side-btn .btn-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .side-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    .sidebar-footer {
+      padding: 14px 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(15, 23, 42, 0.6);
+    }
+
+    .sync-live-card {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+
+    .sync-live-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #34d399;
+      font-weight: 700;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    /* ============ MAIN WORKSPACE ============ */
+    .erp-main {
+      margin-left: 270px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      padding-bottom: 48px;
+    }
+
+    /* Official Fixed Shop Statement Header */
+    .official-header {
+      background: linear-gradient(125deg, #0f172a 0%, #1e3a8a 60%, #0f172a 100%);
+      color: #ffffff;
+      padding: 18px 28px;
+      border-bottom: 3px solid var(--sheet-mint);
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.12);
+    }
+
+    .official-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .official-statement-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .statement-item {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-left: 4px solid #38bdf8;
+      padding: 9px 14px;
+      border-radius: 8px;
+    }
+
+    .statement-item .st-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #93c5fd;
+      font-weight: 700;
+    }
+
+    .statement-item .st-val {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-top: 2px;
+    }
+
+    /* Content Wrapper */
+    .workspace-body {
+      padding: 24px 28px;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* KPI Row */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      border-radius: 14px;
+      padding: 18px 20px;
+      border: 1px solid var(--slate-200);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--primary);
+    }
+    .kpi-card.emerald::before { background: var(--emerald); }
+    .kpi-card.amber::before { background: var(--amber); }
+    .kpi-card.indigo::before { background: #6366f1; }
+
+    .kpi-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .kpi-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--slate-500);
+    }
+
+    .kpi-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: #f1f5f9;
+    }
+
+    .kpi-value {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--navy-900);
+      margin-top: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .kpi-foot {
+      font-size: 12px;
+      color: var(--slate-500);
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Toolbar & Filters */
+    .Command-bar {
+      background: var(--bg-card);
+      border: 1px solid var(--slate-200);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 260px;
+      max-width: 440px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 14px 10px 36px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      font-size: 13.5px;
+      background: #f8fafc;
+      transition: all 0.15s;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+    }
+
+    .search-box .s-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--slate-500);
+      font-size: 14px;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      padding: 7px 13px;
+      border-radius: 8px;
+      border: 1px solid var(--slate-200);
+      background: #f8fafc;
+      color: var(--slate-700);
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .chip:hover { background: #e2e8f0; }
+    .chip.active {
+      background: var(--navy-900);
+      color: #fff;
+      border-color: var(--navy-900);
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 9px 15px;
+      border-radius: 9px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #fff;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+    }
+    .btn-primary:hover { filter: brightness(1.08); }
+
+    .btn-success {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #fff;
+      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.25);
+    }
+    .btn-success:hover { filter: brightness(1.08); }
+
+    .btn-amber {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #fff;
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--slate-700);
+      border-color: #cbd5e1;
+    }
+    .btn-outline:hover { background: #f1f5f9; }
+
+    .btn-danger {
+      background: #fef2f2;
+      color: #dc2626;
+      border-color: #fecaca;
+    }
+    .btn-danger:hover { background: #fee2e2; }
+
+    /* Shopkeeper Cards Grid */
+    .files-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 18px;
+    }
+
+    .shop-card {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid var(--slate-200);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    }
+
+    .shop-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.1);
+      border-color: var(--primary);
+    }
+
+    .shop-card-top {
+      background: linear-gradient(90deg, #1ff0a6 0%, #34d399 100%);
+      padding: 13px 16px;
+      font-weight: 800;
+      font-size: 15px;
+      color: #064e3b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .shop-card-contact {
+      background: var(--sheet-gold);
+      padding: 8px 16px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #422006;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .shop-card-body {
+      padding: 15px 16px;
+      font-size: 13.5px;
+    }
+
+    .shop-stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px dashed #e2e8f0;
+    }
+
+    .shop-stat-row:last-child {
+      border-bottom: none;
+      padding-top: 10px;
+      margin-top: 4px;
+      font-size: 15.5px;
+      font-weight: 800;
+    }
+
+    .shop-card-footer {
+      background: #f8fafc;
+      padding: 11px 16px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Compact ERP Table View for 400+ Shopkeepers */
+    .erp-data-table-wrap {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid var(--slate-200);
+      overflow-x: auto;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    table.erp-list-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    table.erp-list-table th {
+      background: #f8fafc;
+      color: var(--slate-700);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 11.5px;
+      letter-spacing: 0.5px;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--slate-200);
+      text-align: left;
+    }
+
+    table.erp-list-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    table.erp-list-table tr:hover td {
+      background: #f0f9ff;
+      cursor: pointer;
+    }
+
+    /* Excel-Style Sheet Tables */
+    .excel-sheet-wrapper {
+      background: #fff;
+      border: 2px solid #334155;
+      border-radius: 10px;
+      overflow-x: auto;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+    }
+
+    table.excel-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    table.excel-table th,
+    table.excel-table td {
+      border: 1px solid #475569;
+      padding: 9px 11px;
+    }
+
+    .sheet-banner-mint {
+      background: var(--sheet-mint);
+      color: #000;
+      font-size: 17px;
+      font-weight: 800;
+      text-align: center;
+      padding: 11px !important;
+    }
+
+    .sheet-banner-gold {
+      background: var(--sheet-gold);
+      color: #000;
+      font-size: 14px;
+      font-weight: 700;
+      font-style: italic;
+    }
+
+    .sheet-cols-blue th {
+      background: var(--sheet-blue);
+      color: #000;
+      font-weight: 800;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .sheet-banner-cyan {
+      background: var(--sheet-cyan);
+      color: #000;
+      font-size: 16px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .sheet-banner-lime {
+      background: var(--sheet-lime);
+      color: #000;
+      font-size: 16px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .sheet-cols-coral th {
+      background: var(--sheet-coral);
+      color: #000;
+      font-weight: 800;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .opening-badge {
+      background: var(--sheet-green);
+      color: #000;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .total-row td {
+      background: #e2e8f0;
+      font-weight: 800;
+      font-size: 14px;
+      border-top: 2px solid #0f172a !important;
+      border-bottom: 2px solid #0f172a !important;
+    }
+
+    /* POS Entry Form Card */
+    .entry-form-card {
+      background: #fff;
+      border: 1px solid #bae6fd;
+      border-left: 5px solid var(--primary);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.07);
+    }
+
+    .entry-form-card h3 {
+      font-size: 15px;
+      color: var(--navy-900);
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+      gap: 12px;
+      align-items: end;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: var(--slate-700);
+      margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 13.5px;
+      background: #f8fafc;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+    }
+
+    /* Watermarked Invoice / Statement Container */
+    .watermark-sheet {
+      position: relative;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .watermark-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .watermark-text-el {
+      font-size: 64px;
+      font-weight: 900;
+      color: rgba(15, 23, 42, 0.075);
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .watermark-diagonal { transform: rotate(-30deg); }
+    .watermark-side {
+      transform: rotate(-90deg);
+      position: absolute;
+      right: -120px;
+      font-size: 48px;
+    }
+    .watermark-center {
+      transform: rotate(0deg);
+      font-size: 54px;
+      border: 6px double rgba(15, 23, 42, 0.09);
+      padding: 16px 36px;
+      border-radius: 12px;
+    }
+
+    .watermark-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Cloud & Mobile Sync Guide Cards */
+    .cloud-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 20px;
+    }
+
+    .cloud-card {
+      background: #fff;
+      border: 1px solid var(--slate-200);
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    .cloud-card h3 {
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--navy-900);
+    }
+
+    .step-list {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 13.5px;
+      color: var(--slate-700);
+    }
+
+    .step-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      background: #f8fafc;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(2px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+    }
+    .modal-backdrop.open { display: flex; }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 14px;
+      max-width: 580px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--navy-900);
+      color: #fff;
+      padding: 13px 20px;
+      border-radius: 10px;
+      border-left: 5px solid var(--sheet-mint);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      font-size: 13.5px;
+      font-weight: 700;
+      z-index: 200;
+      display: none;
+    }
+
+    @media (max-width: 960px) {
+      .erp-sidebar {
+        position: static;
+        width: 100%;
+      }
+      body { flex-direction: column; }
+      .erp-main { margin-left: 0; }
+    }
+
+    @media print {
+      body { background: #fff !important; display: block !important; }
+      .erp-sidebar,
+      .no-print,
+      .entry-form-card,
+      .Command-bar,
+      .action-col {
+        display: none !important;
+      }
+      .erp-main { margin-left: 0 !important; padding: 0 !important; }
+      .workspace-body { padding: 0 !important; max-width: 100% !important; }
+      .official-header {
+        background: #fff !important;
+        color: #000 !important;
+        border-bottom: 3px solid #000 !important;
+        padding: 8px 0 12px !important;
+        box-shadow: none !important;
+      }
+      .statement-item {
+        border: 1px solid #000 !important;
+        background: #fff !important;
+      }
+      .statement-item .st-label,
+      .statement-item .st-val {
+        color: #000 !important;
+      }
+      .watermark-text-el {
+        color: rgba(0, 0, 0, 0.11) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      table.excel-table th,
+      table.excel-table td,
+      .sheet-banner-mint,
+      .sheet-banner-gold,
+      .sheet-cols-blue th,
+      .opening-badge {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ LEFT ENTERPRISE SIDEBAR ============ -->
+  <aside class="erp-sidebar no-print">
+    <div>
+      <div class="sidebar-brand">
+        <div class="brand-badge">⚡ Enterprise ERP v2.5</div>
+        <h2>Rajpoot Traders</h2>
+        <p>Whole Sale Distributor — Multan</p>
+      </div>
+
+      <div class="sidebar-nav">
+        <div class="nav-section-label">Main Modules</div>
+        <button class="side-btn active" id="tab-btn-shopkeepers" onclick="switchView('shopkeepers')">
+          <span class="btn-left">📁 Shopkeeper Khata</span>
+          <span class="side-pill" id="side-shop-count">0</span>
+        </button>
+        <button class="side-btn" id="tab-btn-stock" onclick="switchView('stock')">
+          <span class="btn-left">📦 Master Stock Sheet</span>
+          <span class="side-pill" id="side-stock-count">0</span>
+        </button>
+        <button class="side-btn" id="tab-btn-ledger" style="display:none;" onclick="switchView('ledger')">
+          <span class="btn-left">📒 Active Party Ledger</span>
+          <span class="side-pill">Live</span>
+        </button>
+        <button class="side-btn" id="tab-btn-cloud" onclick="switchView('cloud')">
+          <span class="btn-left">☁️ Mobile & Cloud Sync</span>
+          <span class="side-pill" style="background:#10b981; color:#052e16;">Free</span>
+        </button>
+
+        <div class="nav-section-label" style="margin-top:12px;">Quick Actions</div>
+        <button class="side-btn" onclick="openNewShopkeeperModal()">
+          <span class="btn-left">➕ New Shopkeeper File</span>
+        </button>
+        <button class="side-btn" onclick="openNewProductModal()">
+          <span class="btn-left">➕ Add Stock Product</span>
+        </button>
+
+        <div class="nav-section-label" style="margin-top:12px;">Real-Time Excel Files</div>
+        <button class="side-btn" onclick="openExcelTarget('stock')">
+          <span class="btn-left">📊 Open FANS_STOCK.xlsx</span>
+        </button>
+        <button class="side-btn" onclick="openExcelTarget('master')">
+          <span class="btn-left">📘 Open Master Workbook</span>
+        </button>
+        <button class="side-btn" onclick="openExcelTarget('mobile_viewer')">
+          <span class="btn-left">📱 Open Mobile Viewer</span>
+        </button>
+        <button class="side-btn" onclick="openExcelTarget('folder')">
+          <span class="btn-left">📂 Open Excel Folder</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="sync-live-card">
+        <div class="sync-live-row">
+          <span class="pulse-dot"></span>
+          <span>Auto-Excel & Mobile Sync</span>
+        </div>
+        <div style="color:#94a3b8; margin-top:4px; font-size:11px;" id="sidebar-sync-sub">
+          Local SQLite + .xlsx + Mobile HTML
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN CONTENT AREA ============ -->
+  <div class="erp-main">
+
+    <!-- Fixed Official Shop Identity Header -->
+    <header class="official-header">
+      <div class="official-header-top">
+        <div>
+          <div style="font-size:11px; text-transform:uppercase; letter-spacing:1.2px; color:#38bdf8; font-weight:800;">
+            Official Wholesale Distribution Statement
+          </div>
+          <h1 style="font-size:23px; font-weight:900; letter-spacing:0.3px; margin-top:2px;">
+            Name: Rajpoot Traders (Whole Sale Distributor)
+          </h1>
+        </div>
+        <div class="no-print" style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn btn-outline" style="background:rgba(255,255,255,0.1); color:#fff; border-color:rgba(255,255,255,0.22);" onclick="openExcelTarget('mobile_viewer')">
+            📱 Preview Mobile Viewer
+          </button>
+          <button class="btn btn-success" onclick="openNewShopkeeperModal()">
+            + Add Shopkeeper (Khata)
+          </button>
+        </div>
+      </div>
+
+      <div class="official-statement-box">
+        <div class="statement-item">
+          <div class="st-label">Name</div>
+          <div class="st-val" id="ui-company-name">Rajpoot Traders (Whole Sale Distributor)</div>
+        </div>
+        <div class="statement-item" style="border-left-color:#1ff0a6;">
+          <div class="st-label">Cell no.</div>
+          <div class="st-val" id="ui-ceo-info">Rana Alauddin (03077178887), Rana Burhan ud din (03045156760)</div>
+        </div>
+        <div class="statement-item" style="border-left-color:#fbbf24;">
+          <div class="st-label">Address</div>
+          <div class="st-val" id="ui-address-info">Ali Town near Zong Tower Budhla road, Multan.</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="workspace-body">
+
+      <!-- VIEW 1: SHOPKEEPER FILES (KHATA DIRECTORY) -->
+      <section id="view-shopkeepers">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <span class="kpi-title">Active Shopkeepers</span>
+              <span class="kpi-icon">🏪</span>
+            </div>
+            <div class="kpi-value" id="kpi-shop-count">0</div>
+            <div class="kpi-foot">
+              <span>Unlimited capacity (400+ Ready)</span>
+              <span style="color:var(--primary); font-weight:700;">.xlsx Synced</span>
+            </div>
+          </div>
+
+          <div class="kpi-card amber">
+            <div class="kpi-top">
+              <span class="kpi-title">Total Market Receivable</span>
+              <span class="kpi-icon">💰</span>
+            </div>
+            <div class="kpi-value" style="color:#0284c7;" id="kpi-total-receivable">Rs. 0</div>
+            <div class="kpi-foot">
+              <span>Opening + Sales − Received</span>
+            </div>
+          </div>
+
+          <div class="kpi-card emerald">
+            <div class="kpi-top">
+              <span class="kpi-title">Master Stock Available</span>
+              <span class="kpi-icon">📦</span>
+            </div>
+            <div class="kpi-value" style="color:#059669;" id="kpi-stock-rem">0 Units</div>
+            <div class="kpi-foot" id="kpi-stock-sub">
+              <span>Auto-deducted on sale</span>
+            </div>
+          </div>
+
+          <div class="kpi-card indigo">
+            <div class="kpi-top">
+              <span class="kpi-title">Total Payments Received</span>
+              <span class="kpi-icon">🏦</span>
+            </div>
+            <div class="kpi-value" style="color:#16a34a;" id="kpi-total-received">Rs. 0</div>
+            <div class="kpi-foot">
+              <span>Cash, Bank & JazzCash</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search, Filter & View Switcher Bar -->
+        <div class="Command-bar">
+          <div class="search-box">
+            <span class="s-icon">🔍</span>
+            <input type="text" id="shop-search" placeholder="Search 400+ shopkeepers by shop name, person, phone, or city..." oninput="renderShopkeeperDirectory()" />
+          </div>
+
+          <div class="filter-group">
+            <button class="chip active" id="flt-all" onclick="setShopFilter('all')">All Parties</button>
+            <button class="chip" id="flt-due" onclick="setShopFilter('due')">Balance Due</button>
+            <button class="chip" id="flt-high" onclick="setShopFilter('high')">High Balance (&gt;50k)</button>
+
+            <select id="shop-sort" style="padding:7px 11px; border-radius:8px; border:1px solid #cbd5e1; font-size:12.5px; font-weight:600;" onchange="renderShopkeeperDirectory()">
+              <option value="balance_desc">Sort: Highest Balance</option>
+              <option value="name_asc">Sort: Name (A–Z)</option>
+              <option value="recent">Sort: Recently Added</option>
+            </select>
+
+            <button class="chip active" id="view-mode-cards" onclick="setDirectoryMode('cards')" title="Card Grid View">🗂 Cards</button>
+            <button class="chip" id="view-mode-table" onclick="setDirectoryMode('table')" title="Compact Table View for 400+ Parties">📋 Table</button>
+          </div>
+        </div>
+
+        <!-- Shopkeeper Cards / Table Container -->
+        <div id="shopkeepers-directory-container"></div>
+      </section>
+
+      <!-- VIEW 2: ACTIVE SHOPKEEPER LEDGER (EXCEL-STYLE SHEET + WATERMARK PRINT) -->
+      <section id="view-ledger" style="display:none;">
+        <div class="Command-bar no-print">
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <button class="btn btn-outline" onclick="switchView('shopkeepers')">← All Shopkeepers</button>
+            <button class="btn btn-outline" onclick="openEditShopkeeperModal()">✏ Edit Party / Opening Bal</button>
+            <button class="btn btn-outline" onclick="openExcelTarget('shopkeeper', activeShopkeeperId)">📊 Open Party .xlsx</button>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <button class="btn btn-success" onclick="shareLedgerOnWhatsApp()">📲 Forward Bill on WhatsApp</button>
+            <select id="watermark-style-select" style="padding:8px 10px; border-radius:8px; border:1px solid #cbd5e1; font-weight:600; font-size:12.5px;" onchange="changeWatermarkStyle(this.value)">
+              <option value="diagonal">Watermark: Diagonal</option>
+              <option value="center">Watermark: Center Stamp</option>
+              <option value="side">Watermark: Side Vertical</option>
+            </select>
+            <button class="btn btn-amber" onclick="window.print()">🖨 Print Watermarked Bill</button>
+          </div>
+        </div>
+
+        <!-- POS-Style Sale & Payment Entry Bar -->
+        <div class="entry-form-card no-print">
+          <h3>
+            <span>⚡ New Sale / Payment Entry — Automatically Deducts Master Stock & Syncs Excel</span>
+            <span id="selected-stock-badge" style="font-size:12.5px; background:#dcfce7; color:#166534; padding:4px 10px; border-radius:999px; font-weight:800;">
+              Select a product to view live stock
+            </span>
+          </h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Date (DD-MM-YY)</label>
+              <input type="text" id="entry-date" placeholder="e.g. 26-10-26" />
+            </div>
+            <div class="form-group" style="grid-column: span 2;">
+              <label>Product (Fan / Washing Machine) — Leave Blank for Payment Only</label>
+              <select id="entry-product" onchange="onSelectEntryProduct()">
+                <option value="">-- Payment Only / Custom Entry --</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Items No (Qty)</label>
+              <input type="number" id="entry-qty" min="0" value="0" oninput="calcEntryAmount()" />
+            </div>
+            <div class="form-group">
+              <label>Rate (Rs.)</label>
+              <input type="number" id="entry-rate" min="0" value="0" oninput="calcEntryAmount()" />
+            </div>
+            <div class="form-group">
+              <label>Total Amount</label>
+              <input type="number" id="entry-amount" readonly style="background:#e2e8f0; font-weight:800;" value="0" />
+            </div>
+            <div class="form-group">
+              <label>Delivery / Samaan Kaun Le Gaya</label>
+              <select id="entry-delivery">
+                <option value="">-- Select Delivery --</option>
+                <option value="Self Pickup (Khud Aaye)">Self Pickup (Khud Aaye)</option>
+                <option value="Rickshaw Wala">Rickshaw Wala</option>
+                <option value="Cargo / Gari">Cargo / Gari</option>
+                <option value="Sent by Shop (Humne Bheja)">Sent by Shop (Humne Bheja)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Payment Mode</label>
+              <select id="entry-payment-mode">
+                <option value="">-- Select Payment Mode --</option>
+                <option value="Cash">Cash</option>
+                <option value="Bank Account">Bank Account</option>
+                <option value="JazzCash / EasyPaisa">JazzCash / EasyPaisa</option>
+                <option value="Online Transfer / Cheque">Online Transfer / Cheque</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Note / Reference</label>
+              <input type="text" id="entry-note" placeholder="e.g. Rickshaw #, Bank Ref, Khod S" />
+            </div>
+            <div class="form-group">
+              <label>Received Amount (Rs.)</label>
+              <input type="number" id="entry-received" min="0" value="0" />
+            </div>
+            <div class="form-group">
+              <button class="btn btn-success" style="width:100%; justify-content:center; padding:10px;" onclick="submitLedgerEntry()">
+                ✔ Save & Sync Excel
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Excel-Style Sheet with Background Company Watermark -->
+        <div class="excel-sheet-wrapper watermark-sheet">
+          <div class="watermark-overlay">
+            <div id="sheet-watermark-el" class="watermark-text-el watermark-diagonal">RAJPOOT TRADERS</div>
+          </div>
+
+          <div class="watermark-content">
+            <table class="excel-table">
+              <thead>
+                <tr>
+                  <th colspan="11" class="sheet-banner-mint" id="sheet-shop-title">Shopkeeper Name</th>
+                </tr>
+                <tr class="sheet-banner-gold">
+                  <td style="width:110px; text-align:center;">Contact No:</td>
+                  <td colspan="10" style="text-align:center;" id="sheet-shop-contact">Contact Person & Phone</td>
+                </tr>
+                <tr class="sheet-cols-blue">
+                  <th style="width:95px;">Date</th>
+                  <th>Product Name</th>
+                  <th style="width:80px;">Items No</th>
+                  <th style="width:95px;">Rate</th>
+                  <th style="width:110px;">Amount</th>
+                  <th style="width:140px;">Delivery By</th>
+                  <th style="width:130px;">Payment Mode</th>
+                  <th style="width:150px;">Note</th>
+                  <th style="width:110px;">Received</th>
+                  <th style="width:125px;">Total Balance</th>
+                  <th style="width:60px;" class="action-col no-print">Del</th>
+                </tr>
+              </thead>
+              <tbody id="ledger-tbody"></tbody>
+              <tfoot id="ledger-tfoot"></tfoot>
+            </table>
+
+            <div style="padding:14px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; font-size:12px; color:#334155; border-top:1px solid #cbd5e1;">
+              <div><strong>Official Statement:</strong> <span id="print-footer-brand">Rajpoot Traders</span></div>
+              <div>Printed on: <span id="print-timestamp"></span></div>
+              <div>Authorized Signature: ______________________</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 3: MASTER STOCK (FAN'S STOCK) -->
+      <section id="view-stock" style="display:none;">
+        <div class="Command-bar no-print">
+          <div>
+            <h2 style="font-size:18px; font-weight:800;">Master Stock Sheet (FAN'S STOCK)</h2>
+            <p style="font-size:12.5px; color:var(--slate-500);">Every sale in any shopkeeper's ledger automatically increments <strong>Stock Out</strong> and deducts <strong>Remaining Products</strong> here and in <code>FANS_STOCK.xlsx</code>.</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-outline" onclick="openExcelTarget('stock')">📊 Open FANS_STOCK.xlsx</button>
+            <button class="btn btn-success" onclick="openNewProductModal()">+ Add New Product to Stock</button>
+          </div>
+        </div>
+
+        <div id="stock-categories-container" style="display:flex; flex-direction:column; gap:24px;"></div>
+      </section>
+
+      <!-- VIEW 4: MOBILE & ZERO-COST GOOGLE DRIVE SYNC CENTER -->
+      <section id="view-cloud" style="display:none;">
+        <div class="Command-bar">
+          <div>
+            <h2 style="font-size:18px; font-weight:800;">☁️ Zero-Cost Cloud & Mobile Access (Works Even When Laptop is OFF)</h2>
+            <p style="font-size:12.5px; color:var(--slate-500);">100% Free architecture: Local SQLite + Auto-Synced Excel & Mobile Viewer for Google Drive / Mobile Phone.</p>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-primary" onclick="openExcelTarget('mobile_viewer')">📱 Launch Mobile Viewer Now</button>
+            <button class="btn btn-outline" onclick="openExcelTarget('folder')">📂 Open Synced Folder</button>
+          </div>
+        </div>
+
+        <div class="cloud-grid">
+          <div class="cloud-card">
+            <h3>1. How Mobile Viewing Works When Laptop is OFF</h3>
+            <p style="font-size:13px; color:var(--slate-500);">
+              Whenever you enter any sale or payment on the laptop, this software automatically updates <strong>all Excel files</strong> AND a standalone mobile app file (<code>Rajpoot_Traders_Mobile_Viewer.html</code>) inside <code>Excel_Sheets/</code>.
+            </p>
+            <div class="step-list">
+              <div class="step-item">
+                <span class="step-num">1</span>
+                <div><strong>Install Free Google Drive for Desktop</strong> on this laptop and sign in with the same Google account used on the client's Android/iPhone.</div>
+              </div>
+              <div class="step-item">
+                <span class="step-num">2</span>
+                <div>Set the <strong>Cloud Mirror Folder</strong> below (or add <code>D:\My Projects\Sales Management System\Excel_Sheets</code> to Google Drive sync).</div>
+              </div>
+              <div class="step-item">
+                <span class="step-num">3</span>
+                <div><strong>Even when the laptop is shut down at the shop</strong>, the client can open the <strong>Google Drive / Google Sheets app</strong> on their mobile in any city, view every shopkeeper's khata & stock, and forward bills on WhatsApp with <strong>Rs. 0 monthly expense</strong>!</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cloud-card">
+            <h3>2. Configure Auto-Mirror Folder (Google Drive / OneDrive)</h3>
+            <p style="font-size:13px; color:var(--slate-500); margin-bottom:14px;">
+              Optionally specify a Google Drive or OneDrive folder on this laptop. Every sale will automatically copy all <code>.xlsx</code> files and the Mobile Viewer into that folder too:
+            </p>
+            <div class="form-group" style="margin-bottom:12px;">
+              <label>Google Drive / OneDrive Folder Path on Laptop</label>
+              <input type="text" id="cloud-folder-input" placeholder="e.g. G:\My Drive\Rajpoot_Traders_Sync" />
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn btn-success" onclick="saveCloudFolder()">✔ Save & Auto-Mirror Files</button>
+              <button class="btn btn-outline" onclick="openExcelTarget('cloud_folder')">📂 Open Mirror Folder</button>
+            </div>
+
+            <div style="margin-top:20px; padding:14px; border-radius:10px; background:#f8fafc; border:1px solid #e2e8f0; font-size:12.5px;">
+              <div><strong>Primary Excel Folder:</strong> <code id="ui-excel-dir-path">D:\My Projects\Sales Management System\Excel_Sheets</code></div>
+              <div style="margin-top:6px;"><strong>Mobile Standalone File:</strong> <code>Rajpoot_Traders_Mobile_Viewer.html</code></div>
+              <div style="margin-top:6px;"><strong>Cloud Mirror Status:</strong> <span id="ui-cloud-status" style="color:#059669; font-weight:700;">Active</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MODAL: ADD / EDIT SHOPKEEPER -->
+  <div class="modal-backdrop" id="modal-shopkeeper">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="shop-modal-title">➕ Create New Shopkeeper File</h3>
+        <button class="btn btn-outline" onclick="closeModals()">✕</button>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div class="form-group">
+          <label>Shopkeeper / Dealer Business Name (e.g. Hassan Husain Electronics Setal Mari Multan)</label>
+          <input type="text" id="shop-name-input" />
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <div class="form-group">
+            <label>Contact Person Name (e.g. Rana Zeshan)</label>
+            <input type="text" id="shop-person-input" />
+          </div>
+          <div class="form-group">
+            <label>Phone Number (e.g. 03006334742)</label>
+            <input type="text" id="shop-phone-input" />
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <div class="form-group">
+            <label>City / Area</label>
+            <input type="text" id="shop-city-input" placeholder="e.g. Multan, Salar Wan" />
+          </div>
+          <div class="form-group">
+            <label>Opening Balance (Rs.)</label>
+            <input type="number" id="shop-opening-input" value="0" />
+          </div>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:8px;">
+          <button class="btn btn-outline" onclick="closeModals()">Cancel</button>
+          <button class="btn btn-success" onclick="saveShopkeeper()">Save Shopkeeper & Generate Excel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD NEW PRODUCT TO STOCK -->
+  <div class="modal-backdrop" id="modal-product">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>📦 Add New Product to Master Stock</h3>
+        <button class="btn btn-outline" onclick="closeModals()">✕</button>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div class="form-group">
+          <label>Stock Category Header (e.g. SFC Invertor 30 watt Stock, Cel SV C.C Stock)</label>
+          <input type="text" id="prod-cat-input" list="existing-categories" placeholder="Select or type category name" />
+          <datalist id="existing-categories"></datalist>
+        </div>
+        <div class="form-group">
+          <label>Product / Fan / Washing Machine Name</label>
+          <input type="text" id="prod-name-input" placeholder="e.g. Sparkel Black 30 watt" />
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+          <div class="form-group">
+            <label>Default Sale Rate (Rs.)</label>
+            <input type="number" id="prod-rate-input" value="0" />
+          </div>
+          <div class="form-group">
+            <label>Initial Stock In (Qty)</label>
+            <input type="number" id="prod-stock-input" value="0" />
+          </div>
+          <div class="form-group">
+            <label>Date (DD-MM-YY)</label>
+            <input type="text" id="prod-date-input" />
+          </div>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:8px;">
+          <button class="btn btn-outline" onclick="closeModals()">Cancel</button>
+          <button class="btn btn-success" onclick="saveNewProduct()">Add to Stock & Sync Excel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD STOCK IN (RESTOCK) -->
+  <div class="modal-backdrop" id="modal-restock">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="restock-title">➕ Add Stock (Stock In)</h3>
+        <button class="btn btn-outline" onclick="closeModals()">✕</button>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <input type="hidden" id="restock-prod-id" />
+        <div class="form-group">
+          <label>Quantity to Add to Stock In (+)</label>
+          <input type="number" id="restock-qty-input" value="10" />
+        </div>
+        <div class="form-group">
+          <label>Update Default Sale Rate (Rs.)</label>
+          <input type="number" id="restock-rate-input" />
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:8px;">
+          <button class="btn btn-outline" onclick="closeModals()">Cancel</button>
+          <button class="btn btn-primary" onclick="submitRestock()">Update Stock & Excel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: MOBILE VIEWER SIMULATOR -->
+  <div class="modal-backdrop" id="modal-mobile-preview">
+    <div class="modal-box" style="max-width:460px; padding:16px; background:#0f172a; color:#fff; border:2px solid #38bdf8;">
+      <div class="modal-header" style="border-bottom-color:#1e293b; margin-bottom:10px; padding-bottom:10px;">
+        <h3 style="font-size:15px; color:#38bdf8;">📱 Mobile Offline Viewer (Live Preview)</h3>
+        <div style="display:flex; gap:6px;">
+          <a href="/mobile-viewer" target="_blank" class="btn btn-primary" style="padding:5px 10px; font-size:12px; text-decoration:none;">↗ Full Tab</a>
+          <a href="/api/download-excel?target=mobile_viewer" class="btn btn-success" style="padding:5px 10px; font-size:12px; text-decoration:none;">⬇ Download</a>
+          <button class="btn btn-outline" style="padding:5px 10px; font-size:12px;" onclick="closeModals()">✕</button>
+        </div>
+      </div>
+      <iframe id="mobile-preview-iframe" src="about:blank" style="width:100%; height:620px; border:1px solid #334155; border-radius:10px; background:#0f172a;"></iframe>
+    </div>
+  </div>
+
+  <!-- MODAL: EXCEL FILES EXPLORER & DIRECT LAUNCHER -->
+  <div class="modal-backdrop" id="modal-excel-hub">
+    <div class="modal-box" style="max-width:760px;">
+      <div class="modal-header">
+        <div>
+          <h3 id="excel-hub-title">📂 Real-Time Synced Excel Files (`Excel_Sheets/`)</h3>
+          <p style="font-size:12px; color:var(--slate-500); margin-top:2px;" id="excel-hub-sub">All files below are automatically updated on every sale or stock change.</p>
+        </div>
+        <button class="btn btn-outline" onclick="closeModals()">✕</button>
+      </div>
+      <div id="excel-hub-list" style="display:flex; flex-direction:column; gap:10px;"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast-msg"></div>
+
+  <script>
+    let appState = {
+      company: {},
+      products: [],
+      shopkeepers: [],
+      metrics: {}
+    };
+    let activeShopkeeperId = null;
+    let activeShopkeeperData = null;
+    let editingShopkeeperMode = false;
+    let shopFilter = 'all';
+    let directoryMode = 'cards';
+
+    function todayFormatted() {
+      const d = new Date();
+      const dd = String(d.getDate()).padStart(2, '0');
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const yy = String(d.getFullYear()).slice(-2);
+      return `${dd}-${mm}-${yy}`;
+    }
+
+    function fmtNum(n) {
+      return Number(n || 0).toLocaleString('en-PK');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast-msg');
+      t.textContent = msg;
+      t.style.display = 'block';
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => { t.style.display = 'none'; }, 3500);
+    }
+
+    async function loadState() {
+      const res = await fetch('/api/state');
+      appState = await res.json();
+      renderCompanyHeader();
+      renderKPIs();
+      renderShopkeeperDirectory();
+      renderStockTables();
+      populateProductDropdown();
+
+      document.getElementById('ui-excel-dir-path').textContent = appState.excel_dir || '';
+      document.getElementById('cloud-folder-input').value = appState.cloud_mirror_dir || '';
+      document.getElementById('ui-cloud-status').textContent = appState.cloud_mirror_dir
+        ? `Mirroring to: ${appState.cloud_mirror_dir}`
+        : 'Ready (Local Excel_Sheets + Mobile Viewer Active)';
+
+      if (activeShopkeeperId) {
+        await loadShopkeeperLedger(activeShopkeeperId, false);
+      }
+    }
+
+    function renderCompanyHeader() {
+      document.getElementById('ui-company-name').textContent = 'Rajpoot Traders (Whole Sale Distributor)';
+      document.getElementById('ui-ceo-info').textContent = 'Rana Alauddin (03077178887), Rana Burhan ud din (03045156760)';
+      document.getElementById('ui-address-info').textContent = 'Ali Town near Zong Tower Budhla road, Multan.';
+      document.getElementById('print-footer-brand').textContent =
+        'Name: Rajpoot Traders (Whole Sale Distributor) | Cell no. : Rana Alauddin (03077178887), Rana Burhan ud din (03045156760) | Address: Ali Town near Zong Tower Budhla road, Multan.';
+      document.getElementById('print-timestamp').textContent = new Date().toLocaleString();
+
+      const wm = document.getElementById('sheet-watermark-el');
+      wm.textContent = 'Rajpoot Traders';
+      const style = (appState.company && appState.company.watermark_style) || 'diagonal';
+      document.getElementById('watermark-style-select').value = style;
+      applyWatermarkClass(style);
+    }
+
+    function applyWatermarkClass(style) {
+      const wm = document.getElementById('sheet-watermark-el');
+      wm.className = 'watermark-text-el';
+      if (style === 'center') wm.classList.add('watermark-center');
+      else if (style === 'side') wm.classList.add('watermark-side');
+      else wm.classList.add('watermark-diagonal');
+    }
+
+    function changeWatermarkStyle(style) {
+      applyWatermarkClass(style);
+    }
+
+    function renderKPIs() {
+      const m = appState.metrics;
+      document.getElementById('kpi-shop-count').textContent = m.shopkeeper_count;
+      document.getElementById('side-shop-count').textContent = m.shopkeeper_count;
+      document.getElementById('side-stock-count').textContent = m.total_stock_remaining;
+      document.getElementById('kpi-total-receivable').textContent = `Rs. ${fmtNum(m.total_receivable)}`;
+      document.getElementById('kpi-stock-rem').textContent = `${fmtNum(m.total_stock_remaining)} Units`;
+      document.getElementById('kpi-stock-sub').innerHTML = `<span>In: ${fmtNum(m.total_stock_in)}</span><span>Out: ${fmtNum(m.total_stock_out)}</span>`;
+      document.getElementById('kpi-total-received').textContent = `Rs. ${fmtNum(m.total_received_amount)}`;
+    }
+
+    function setShopFilter(f) {
+      shopFilter = f;
+      document.getElementById('flt-all').classList.toggle('active', f === 'all');
+      document.getElementById('flt-due').classList.toggle('active', f === 'due');
+      document.getElementById('flt-high').classList.toggle('active', f === 'high');
+      renderShopkeeperDirectory();
+    }
+
+    function setDirectoryMode(mode) {
+      directoryMode = mode;
+      document.getElementById('view-mode-cards').classList.toggle('active', mode === 'cards');
+      document.getElementById('view-mode-table').classList.toggle('active', mode === 'table');
+      renderShopkeeperDirectory();
+    }
+
+    function renderShopkeeperDirectory() {
+      const q = (document.getElementById('shop-search').value || '').toLowerCase().trim();
+      const sortBy = document.getElementById('shop-sort').value;
+      const box = document.getElementById('shopkeepers-directory-container');
+
+      let list = appState.shopkeepers.filter(s => {
+        const matchQ = !q ||
+          s.shop_name.toLowerCase().includes(q) ||
+          s.contact_person.toLowerCase().includes(q) ||
+          s.phone.toLowerCase().includes(q) ||
+          (s.city || '').toLowerCase().includes(q);
+        if (!matchQ) return false;
+        if (shopFilter === 'due') return s.current_balance > 0;
+        if (shopFilter === 'high') return s.current_balance >= 50000;
+        return true;
+      });
+
+      if (sortBy === 'balance_desc') list.sort((a, b) => b.current_balance - a.current_balance);
+      else if (sortBy === 'name_asc') list.sort((a, b) => a.shop_name.localeCompare(b.shop_name));
+      else list.sort((a, b) => b.id - a.id);
+
+      if (list.length === 0) {
+        box.innerHTML = `<div style="padding:36px; text-align:center; background:#fff; border-radius:12px; border:1px solid var(--slate-200);">No shopkeeper accounts match your filter. Click <b>+ Add Shopkeeper (Khata)</b> to add one.</div>`;
+        return;
+      }
+
+      if (directoryMode === 'table') {
+        box.innerHTML = `
+          <div class="erp-data-table-wrap">
+            <table class="erp-list-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Shopkeeper / Party Name</th>
+                  <th>Contact Person & Phone</th>
+                  <th style="text-align:right;">Opening Bal</th>
+                  <th style="text-align:right;">Total Sales</th>
+                  <th style="text-align:right;">Received</th>
+                  <th style="text-align:right;">Net Balance</th>
+                  <th style="text-align:center;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${list.map((s, idx) => `
+                  <tr onclick="openShopkeeper(${s.id})">
+                    <td><b>${idx + 1}</b></td>
+                    <td><strong style="color:var(--navy-900);">${s.shop_name}</strong></td>
+                    <td>${s.contact_person} (${s.phone})</td>
+                    <td style="text-align:right;">Rs. ${fmtNum(s.opening_balance)}</td>
+                    <td style="text-align:right;">Rs. ${fmtNum(s.total_amount)}</td>
+                    <td style="text-align:right; color:#16a34a; font-weight:700;">Rs. ${fmtNum(s.total_received)}</td>
+                    <td style="text-align:right; color:#0284c7; font-weight:800;">Rs. ${fmtNum(s.current_balance)}</td>
+                    <td style="text-align:center;" onclick="event.stopPropagation();">
+                      <button class="btn btn-outline" style="padding:5px 10px; font-size:12px;" onclick="openExcelTarget('shopkeeper', ${s.id})">Excel</button>
+                      <button class="btn btn-primary" style="padding:5px 10px; font-size:12px;" onclick="openShopkeeper(${s.id})">Open →</button>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+        return;
+      }
+
+      box.innerHTML = `<div class="files-grid">` + list.map(s => `
+        <div class="shop-card" onclick="openShopkeeper(${s.id})">
+          <div>
+            <div class="shop-card-top">
+              <span>📁 ${s.shop_name}</span>
+            </div>
+            <div class="shop-card-contact">
+              <span>👤 ${s.contact_person}: ${s.phone}</span>
+              <span>${s.city || ''}</span>
+            </div>
+            <div class="shop-card-body">
+              <div class="shop-stat-row">
+                <span style="color:var(--slate-500);">Opening Balance:</span>
+                <strong>Rs. ${fmtNum(s.opening_balance)}</strong>
+              </div>
+              <div class="shop-stat-row">
+                <span style="color:var(--slate-500);">Total Sales (${s.total_items} pcs):</span>
+                <strong>Rs. ${fmtNum(s.total_amount)}</strong>
+              </div>
+              <div class="shop-stat-row">
+                <span style="color:var(--slate-500);">Total Received:</span>
+                <strong style="color:#16a34a;">Rs. ${fmtNum(s.total_received)}</strong>
+              </div>
+              <div class="shop-stat-row">
+                <span>Net Payable Balance:</span>
+                <span style="color:#0284c7;">Rs. ${fmtNum(s.current_balance)}</span>
+              </div>
+            </div>
+          </div>
+          <div class="shop-card-footer" onclick="event.stopPropagation();">
+            <span style="font-size:11.5px; color:var(--slate-500);">📄 ${s.excel_file}</span>
+            <div style="display:flex; gap:6px;">
+              <button class="btn btn-outline" style="padding:5px 10px; font-size:12px;" onclick="openExcelTarget('shopkeeper', ${s.id})">.xlsx</button>
+              <button class="btn btn-primary" style="padding:5px 12px; font-size:12px;" onclick="openShopkeeper(${s.id})">Open Khata →</button>
+            </div>
+          </div>
+        </div>
+      `).join('') + `</div>`;
+    }
+
+    function populateProductDropdown() {
+      const sel = document.getElementById('entry-product');
+      const currentVal = sel.value;
+      let html = `<option value="">-- Payment Only / Custom Note --</option>`;
+      const byCat = {};
+      for (const p of appState.products) {
+        (byCat[p.category] = byCat[p.category] || []).push(p);
+      }
+      for (const [cat, items] of Object.entries(byCat)) {
+        html += `<optgroup label="${cat}">`;
+        for (const item of items) {
+          html += `<option value="${item.id}" data-rate="${item.default_rate}" data-rem="${item.remaining}">${item.name} (Available: ${item.remaining} | Rs. ${fmtNum(item.default_rate)})</option>`;
+        }
+        html += `</optgroup>`;
+      }
+      sel.innerHTML = html;
+      sel.value = currentVal;
+
+      const dl = document.getElementById('existing-categories');
+      dl.innerHTML = Object.keys(byCat).map(c => `<option value="${c}">`).join('');
+    }
+
+    function onSelectEntryProduct() {
+      const sel = document.getElementById('entry-product');
+      const opt = sel.options[sel.selectedIndex];
+      const badge = document.getElementById('selected-stock-badge');
+      if (sel.value && opt) {
+        const defaultRate = Number(opt.getAttribute('data-rate') || 0);
+        const rem = Number(opt.getAttribute('data-rem') || 0);
+        document.getElementById('entry-rate').value = defaultRate;
+        const qtyInput = document.getElementById('entry-qty');
+        if (Number(qtyInput.value) === 0) qtyInput.value = 1;
+        badge.textContent = `Available in Stock: ${rem} Units (Rate: Rs. ${fmtNum(defaultRate)})`;
+      } else {
+        document.getElementById('entry-qty').value = 0;
+        document.getElementById('entry-rate').value = 0;
+        badge.textContent = 'Payment Only / Custom Entry Mode';
+      }
+      calcEntryAmount();
+    }
+
+    function calcEntryAmount() {
+      const qty = Number(document.getElementById('entry-qty').value || 0);
+      const rate = Number(document.getElementById('entry-rate').value || 0);
+      document.getElementById('entry-amount').value = Math.round(qty * rate);
+    }
+
+    async function openShopkeeper(shopkeeperId) {
+      activeShopkeeperId = shopkeeperId;
+      document.getElementById('tab-btn-ledger').style.display = 'flex';
+      document.getElementById('entry-date').value = todayFormatted();
+      await loadShopkeeperLedger(shopkeeperId, true);
+    }
+
+    async function loadShopkeeperLedger(shopkeeperId, switchTab = true) {
+      const res = await fetch(`/api/shopkeepers/${shopkeeperId}/ledger`);
+      const data = await res.json();
+      activeShopkeeperData = data.shopkeeper;
+      const entries = data.entries;
+
+      document.getElementById('sheet-shop-title').textContent = activeShopkeeperData.shop_name;
+      document.getElementById('sheet-shop-contact').textContent =
+        `${activeShopkeeperData.contact_person}: ${activeShopkeeperData.phone}`;
+
+      const tbody = document.getElementById('ledger-tbody');
+      let rowsHtml = `
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="opening-badge">Opening B</td>
+          <td></td>
+          <td style="text-align:right; font-weight:800;">${fmtNum(activeShopkeeperData.opening_balance)}</td>
+          <td class="action-col no-print"></td>
+        </tr>
+      `;
+
+      for (const e of entries) {
+        rowsHtml += `
+          <tr>
+            <td style="text-align:center;">${e.date}</td>
+            <td style="font-weight:600;">${e.product_name || ''}</td>
+            <td style="text-align:center;">${e.qty ? e.qty : ''}</td>
+            <td style="text-align:right;">${e.rate ? fmtNum(e.rate) : ''}</td>
+            <td style="text-align:right; font-weight:600;">${fmtNum(e.amount)}</td>
+            <td style="color:#0369a1; font-weight:600;">${e.delivery_info || ''}</td>
+            <td style="color:#4338ca; font-weight:600;">${e.payment_mode || ''}</td>
+            <td style="color:#0f172a;">${e.note || ''}</td>
+            <td style="text-align:right; color:#15803d; font-weight:700;">${e.received ? fmtNum(e.received) : ''}</td>
+            <td style="text-align:right; font-weight:700;">${fmtNum(e.running_balance)}</td>
+            <td style="text-align:center;" class="action-col no-print">
+              <button class="btn btn-danger" style="padding:3px 8px; font-size:11px;" title="Delete row & restore stock" onclick="deleteLedgerEntry(${e.id})">✕</button>
+            </td>
+          </tr>
+        `;
+      }
+
+      tbody.innerHTML = rowsHtml;
+
+      document.getElementById('ledger-tfoot').innerHTML = `
+        <tr class="total-row">
+          <td></td>
+          <td>Total Amount</td>
+          <td style="text-align:center;">${fmtNum(activeShopkeeperData.total_qty)}</td>
+          <td></td>
+          <td style="text-align:right;">${fmtNum(activeShopkeeperData.total_amount)}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="text-align:right; color:#15803d;">${fmtNum(activeShopkeeperData.total_received)}</td>
+          <td style="text-align:right; color:#0284c7;">${fmtNum(activeShopkeeperData.current_balance)}</td>
+          <td class="action-col no-print"></td>
+        </tr>
+      `;
+      window._activeEntries = entries;
+
+      if (switchTab) switchView('ledger');
+    }
+
+    function shareLedgerOnWhatsApp() {
+      if (!activeShopkeeperData) return;
+      const s = activeShopkeeperData;
+      const entries = window._activeEntries || [];
+      let lines = [
+        `*Name: Rajpoot Traders (Whole Sale Distributor)*`,
+        `Cell no. : Rana Alauddin (03077178887), Rana Burhan ud din (03045156760)`,
+        `Address: Ali Town near Zong Tower Budhla road, Multan.`,
+        `--------------------------------`,
+        `*Party:* ${s.shop_name}`,
+        `*Contact:* ${s.contact_person} (${s.phone})`,
+        `*Opening Balance:* Rs. ${fmtNum(s.opening_balance)}`,
+        `--------------------------------`
+      ];
+      for (const e of entries) {
+        const parts = [`📅 ${e.date}`];
+        if (e.product_name) parts.push(`${e.product_name} (${e.qty} x ${fmtNum(e.rate)} = Rs. ${fmtNum(e.amount)})`);
+        if (e.delivery_info) parts.push(`🚚 ${e.delivery_info}`);
+        if (e.received) parts.push(`💵 Rec: Rs. ${fmtNum(e.received)}${e.payment_mode ? ' (' + e.payment_mode + ')' : ''}`);
+        if (e.note) parts.push(`📝 ${e.note}`);
+        parts.push(`*Bal: Rs. ${fmtNum(e.running_balance)}*`);
+        lines.push(parts.join(' | '));
+      }
+      lines.push(`--------------------------------`);
+      lines.push(`*Total Sales:* Rs. ${fmtNum(s.total_amount)}`);
+      lines.push(`*Total Received:* Rs. ${fmtNum(s.total_received)}`);
+      lines.push(`*NET PAYABLE BALANCE: Rs. ${fmtNum(s.current_balance)}*`);
+
+      let phoneClean = (s.phone || '').replace(/[^0-9]/g, '');
+      if (phoneClean.startsWith('03')) phoneClean = '92' + phoneClean.slice(1);
+      const url = `https://wa.me/${phoneClean}?text=${encodeURIComponent(lines.join('\n'))}`;
+      window.open(url, '_blank');
+    }
+
+    async function submitLedgerEntry() {
+      const date = document.getElementById('entry-date').value.trim() || todayFormatted();
+      const prodVal = document.getElementById('entry-product').value;
+      const product_id = prodVal ? Number(prodVal) : null;
+      const qty = Number(document.getElementById('entry-qty').value || 0);
+      const rate = Number(document.getElementById('entry-rate').value || 0);
+      const delivery_info = document.getElementById('entry-delivery').value;
+      const payment_mode = document.getElementById('entry-payment-mode').value;
+      const note = document.getElementById('entry-note').value.trim();
+      const received = Number(document.getElementById('entry-received').value || 0);
+
+      if (!product_id && qty === 0 && received === 0 && !note) {
+        alert('Please select a Product to sell OR enter a Received Payment amount/note.');
+        return;
+      }
+
+      const res = await fetch(`/api/shopkeepers/${activeShopkeeperId}/ledger`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ date, product_id, qty, rate, delivery_info, payment_mode, note, received })
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        alert(err.detail || 'Error adding entry');
+        return;
+      }
+
+      document.getElementById('entry-product').value = '';
+      document.getElementById('entry-qty').value = 0;
+      document.getElementById('entry-rate').value = 0;
+      document.getElementById('entry-amount').value = 0;
+      document.getElementById('entry-delivery').value = '';
+      document.getElementById('entry-payment-mode').value = '';
+      document.getElementById('entry-note').value = '';
+      document.getElementById('entry-received').value = 0;
+
+      await loadState();
+      showToast('✔ Entry saved, Stock deducted & Excel + Mobile Viewer synced!');
+    }
+
+    async function deleteLedgerEntry(entryId) {
+      if (!confirm('Delete this row? Sold quantity will be restored to Master Stock automatically.')) return;
+      const res = await fetch(`/api/ledger/${entryId}`, { method: 'DELETE' });
+      if (res.ok) {
+        await loadState();
+        showToast('✔ Row deleted, Stock restored & Excel updated!');
+      }
+    }
+
+    function renderStockTables() {
+      const container = document.getElementById('stock-categories-container');
+      const byCat = {};
+      for (const p of appState.products) {
+        (byCat[p.category] = byCat[p.category] || []).push(p);
+      }
+
+      let idx = 0;
+      let html = '';
+      for (const [catName, items] of Object.entries(byCat)) {
+        const isEven = idx % 2 === 0;
+        const bannerClass = isEven ? 'sheet-banner-cyan' : 'sheet-banner-lime';
+        const colsClass = isEven ? 'sheet-cols-blue' : 'sheet-cols-coral';
+
+        let totalIn = 0, totalOut = 0, totalRem = 0;
+        const rows = items.map(item => {
+          totalIn += item.stock_in;
+          totalOut += item.stock_out;
+          totalRem += item.remaining;
+          const lowBadge = item.remaining <= 5
+            ? `<span style="background:#fee2e2; color:#b91c1c; padding:2px 7px; border-radius:4px; font-size:11px; margin-left:6px;">Low</span>`
+            : '';
+          return `
+            <tr>
+              <td style="text-align:center;">${item.date_added}</td>
+              <td style="font-weight:600;">${item.name} ${lowBadge}</td>
+              <td style="text-align:right;">Rs. ${fmtNum(item.default_rate)}</td>
+              <td style="text-align:right; font-weight:600;">${fmtNum(item.stock_in)}</td>
+              <td style="text-align:right; color:#b91c1c; font-weight:700;">${item.stock_out ? fmtNum(item.stock_out) : 0}</td>
+              <td style="text-align:right; color:#059669; font-weight:800;">${fmtNum(item.remaining)}</td>
+              <td style="text-align:center;" class="no-print">
+                <button class="btn btn-outline" style="padding:4px 10px; font-size:12px;" onclick="openRestockModal(${item.id}, '${item.name.replace(/'/g, "\\'")}', ${item.default_rate})">+ Stock In</button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        html += `
+          <div class="excel-sheet-wrapper">
+            <table class="excel-table">
+              <thead>
+                <tr>
+                  <th colspan="7" class="${bannerClass}">${catName}</th>
+                </tr>
+                <tr class="${colsClass}">
+                  <th style="width:110px;">Date</th>
+                  <th>Product Name</th>
+                  <th style="width:130px;">Default Rate</th>
+                  <th style="width:120px;">Stock In</th>
+                  <th style="width:120px;">Stock Out</th>
+                  <th style="width:165px;">Remaining Products</th>
+                  <th style="width:125px;" class="no-print">Action</th>
+                </tr>
+              </thead>
+              <tbody>${rows}</tbody>
+              <tfoot>
+                <tr class="total-row">
+                  <td></td>
+                  <td>Total Products</td>
+                  <td></td>
+                  <td style="text-align:right;">${fmtNum(totalIn)}</td>
+                  <td style="text-align:right; color:#b91c1c;">${fmtNum(totalOut)}</td>
+                  <td style="text-align:right; color:#059669;">${fmtNum(totalRem)}</td>
+                  <td class="no-print"></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        `;
+        idx++;
+      }
+      container.innerHTML = html;
+    }
+
+    function switchView(view) {
+      document.getElementById('view-shopkeepers').style.display = view === 'shopkeepers' ? 'block' : 'none';
+      document.getElementById('view-stock').style.display = view === 'stock' ? 'block' : 'none';
+      document.getElementById('view-ledger').style.display = view === 'ledger' ? 'block' : 'none';
+      document.getElementById('view-cloud').style.display = view === 'cloud' ? 'block' : 'none';
+
+      document.getElementById('tab-btn-shopkeepers').classList.toggle('active', view === 'shopkeepers');
+      document.getElementById('tab-btn-stock').classList.toggle('active', view === 'stock');
+      document.getElementById('tab-btn-ledger').classList.toggle('active', view === 'ledger');
+      document.getElementById('tab-btn-cloud').classList.toggle('active', view === 'cloud');
+    }
+
+    function closeModals() {
+      document.querySelectorAll('.modal-backdrop').forEach(m => m.classList.remove('open'));
+    }
+
+    function openNewShopkeeperModal() {
+      editingShopkeeperMode = false;
+      document.getElementById('shop-modal-title').textContent = '➕ Create New Shopkeeper File';
+      document.getElementById('shop-name-input').value = '';
+      document.getElementById('shop-person-input').value = '';
+      document.getElementById('shop-phone-input').value = '';
+      document.getElementById('shop-city-input').value = '';
+      document.getElementById('shop-opening-input').value = 0;
+      document.getElementById('modal-shopkeeper').classList.add('open');
+    }
+
+    function openEditShopkeeperModal() {
+      if (!activeShopkeeperData) return;
+      editingShopkeeperMode = true;
+      document.getElementById('shop-modal-title').textContent = '✏ Edit Shopkeeper Details';
+      document.getElementById('shop-name-input').value = activeShopkeeperData.shop_name;
+      document.getElementById('shop-person-input').value = activeShopkeeperData.contact_person;
+      document.getElementById('shop-phone-input').value = activeShopkeeperData.phone;
+      document.getElementById('shop-city-input').value = activeShopkeeperData.city || '';
+      document.getElementById('shop-opening-input').value = activeShopkeeperData.opening_balance;
+      document.getElementById('modal-shopkeeper').classList.add('open');
+    }
+
+    async function saveShopkeeper() {
+      const payload = {
+        shop_name: document.getElementById('shop-name-input').value,
+        contact_person: document.getElementById('shop-person-input').value,
+        phone: document.getElementById('shop-phone-input').value,
+        city: document.getElementById('shop-city-input').value,
+        opening_balance: Number(document.getElementById('shop-opening-input').value || 0)
+      };
+      if (!payload.shop_name.trim()) {
+        alert('Please enter the Shopkeeper Business Name');
+        return;
+      }
+
+      const url = editingShopkeeperMode ? `/api/shopkeepers/${activeShopkeeperId}` : '/api/shopkeepers';
+      const method = editingShopkeeperMode ? 'PUT' : 'POST';
+
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        alert(err.detail || 'Error saving shopkeeper');
+        return;
+      }
+      const out = await res.json();
+      closeModals();
+      await loadState();
+      if (!editingShopkeeperMode && out.shopkeeper_id) {
+        await openShopkeeper(out.shopkeeper_id);
+      }
+      showToast('✔ Shopkeeper saved & Excel + Mobile Viewer synced!');
+    }
+
+    function openNewProductModal() {
+      document.getElementById('prod-cat-input').value = 'SFC Invertor 30 watt Stock';
+      document.getElementById('prod-name-input').value = '';
+      document.getElementById('prod-rate-input').value = 8500;
+      document.getElementById('prod-stock-input').value = 20;
+      document.getElementById('prod-date-input').value = todayFormatted();
+      document.getElementById('modal-product').classList.add('open');
+    }
+
+    async function saveNewProduct() {
+      const payload = {
+        category: document.getElementById('prod-cat-input').value,
+        name: document.getElementById('prod-name-input').value,
+        default_rate: Number(document.getElementById('prod-rate-input').value || 0),
+        stock_in: Number(document.getElementById('prod-stock-input').value || 0),
+        date_added: document.getElementById('prod-date-input').value
+      };
+      if (!payload.name.trim()) {
+        alert('Please enter a product name');
+        return;
+      }
+      const res = await fetch('/api/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        alert(err.detail || 'Error adding product');
+        return;
+      }
+      closeModals();
+      await loadState();
+      showToast('✔ Product added to Stock & FANS_STOCK.xlsx updated!');
+    }
+
+    function openRestockModal(prodId, prodName, currentRate) {
+      document.getElementById('restock-prod-id').value = prodId;
+      document.getElementById('restock-title').textContent = `➕ Add Stock In: ${prodName}`;
+      document.getElementById('restock-qty-input').value = 10;
+      document.getElementById('restock-rate-input').value = currentRate;
+      document.getElementById('modal-restock').classList.add('open');
+    }
+
+    async function submitRestock() {
+      const prodId = document.getElementById('restock-prod-id').value;
+      const add_stock_in = Number(document.getElementById('restock-qty-input').value || 0);
+      const new_default_rate = Number(document.getElementById('restock-rate-input').value || 0);
+      await fetch(`/api/products/${prodId}/stock`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ add_stock_in, new_default_rate, date_added: todayFormatted() })
+      });
+      closeModals();
+      await loadState();
+      showToast('✔ Stock In updated & FANS_STOCK.xlsx synced!');
+    }
+
+    async function saveCloudFolder() {
+      const cloud_mirror_dir = document.getElementById('cloud-folder-input').value.trim();
+      const res = await fetch('/api/cloud-config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cloud_mirror_dir })
+      });
+      if (res.ok) {
+        await loadState();
+        showToast('✔ Cloud Mirror Folder updated & all files synced!');
+      }
+    }
+
+    async function openExcelTarget(target, shopkeeper_id = null) {
+      if (target === 'mobile_viewer') {
+        const iframe = document.getElementById('mobile-preview-iframe');
+        iframe.src = '/mobile-viewer?t=' + Date.now();
+        document.getElementById('modal-mobile-preview').classList.add('open');
+        showToast('📱 Mobile Viewer opened!');
+        return;
+      }
+
+      if (target === 'stock' || target === 'master' || target === 'shopkeeper') {
+        const res = await fetch('/api/open-excel', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ target, shopkeeper_id })
+        });
+        const qs = shopkeeper_id ? `?target=${target}&shopkeeper_id=${shopkeeper_id}` : `?target=${target}`;
+        const a = document.createElement('a');
+        a.href = `/api/download-excel${qs}`;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        if (res.ok) {
+          showToast('📊 Opening in Microsoft Excel & downloaded!');
+        }
+        return;
+      }
+
+      // For 'folder' or 'cloud_folder': show the In-App Excel Files Hub Modal AND open Windows Explorer
+      fetch('/api/open-excel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ target, shopkeeper_id })
+      });
+
+      const res = await fetch('/api/excel-files');
+      if (res.ok) {
+        const data = await res.json();
+        document.getElementById('excel-hub-sub').textContent = `Folder: ${data.excel_dir} (Last Synced: ${data.sync.synced_at})`;
+        const listEl = document.getElementById('excel-hub-list');
+        listEl.innerHTML = data.files.map(f => {
+          const isHtml = f.name.endsWith('.html');
+          return `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 14px; border:1px solid var(--slate-200); border-radius:10px; background:#f8fafc;">
+              <div>
+                <div style="font-weight:800; font-size:14px; color:var(--navy-900);">${isHtml ? '📱' : '📊'} ${f.name}</div>
+                <div style="font-size:12px; color:var(--slate-500);">Path: <code>${f.rel_path}</code> • Size: ${f.size_kb} KB • Updated: ${f.modified}</div>
+              </div>
+              <div style="display:flex; gap:8px;">
+                ${isHtml
+                  ? `<button class="btn btn-primary" style="padding:6px 12px; font-size:12px;" onclick="closeModals(); openExcelTarget('mobile_viewer')">👁 Preview</button>`
+                  : `<a href="/api/download-excel?target=rel&file=${encodeURIComponent(f.rel_path)}" class="btn btn-success" style="padding:6px 12px; font-size:12px; text-decoration:none;">⬇ Download & Open .xlsx</a>`
+                }
+              </div>
+            </div>
+          `;
+        }).join('');
+        document.getElementById('modal-excel-hub').classList.add('open');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadState);
+  </script>
+</body>
+</html>
