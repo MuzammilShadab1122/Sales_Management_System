@@ -575,10 +575,28 @@ class RajputTradersRequestHandler(BaseHTTPRequestHandler):
         raw = self.rfile.read(length).decode("utf-8")
         return json.loads(raw) if raw else {}
 
-    def do_GET(self):
+    def _parse_request_path(self) -> tuple[str, dict]:
         parsed = urlparse(self.path)
-        path = parsed.path
-        qs = parse_qs(parsed.query)
+        qs = parse_qs(parsed.query, keep_blank_values=True)
+        if "__path" in qs and qs["__path"]:
+            raw_route = qs["__path"][0]
+            sub_parsed = urlparse(raw_route)
+            path = sub_parsed.path or "/"
+            if not path.startswith("/"):
+                path = "/" + path
+            if sub_parsed.query:
+                sub_qs = parse_qs(sub_parsed.query, keep_blank_values=True)
+                for k, v in sub_qs.items():
+                    if k not in qs:
+                        qs[k] = v
+        else:
+            path = parsed.path or "/"
+        if len(path) > 1 and path.endswith("/"):
+            path = path.rstrip("/")
+        return path, qs
+
+    def do_GET(self):
+        path, qs = self._parse_request_path()
 
         try:
             if path == "/api/state":
@@ -671,8 +689,7 @@ class RajputTradersRequestHandler(BaseHTTPRequestHandler):
             self._send_json({"detail": str(e)}, status=400)
 
     def do_POST(self):
-        parsed = urlparse(self.path)
-        path = parsed.path
+        path, _ = self._parse_request_path()
         try:
             payload = self._read_json()
             if path == "/api/shopkeepers":
@@ -705,8 +722,7 @@ class RajputTradersRequestHandler(BaseHTTPRequestHandler):
             self._send_json({"detail": str(e)}, status=400)
 
     def do_PUT(self):
-        parsed = urlparse(self.path)
-        path = parsed.path
+        path, _ = self._parse_request_path()
         try:
             payload = self._read_json()
             if path == "/api/company":
@@ -721,8 +737,7 @@ class RajputTradersRequestHandler(BaseHTTPRequestHandler):
             self._send_json({"detail": str(e)}, status=400)
 
     def do_DELETE(self):
-        parsed = urlparse(self.path)
-        path = parsed.path
+        path, _ = self._parse_request_path()
         try:
             m_entry = re.match(r"^/api/ledger/(\d+)$", path)
             if m_entry:
